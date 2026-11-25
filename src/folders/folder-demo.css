@@ -1,0 +1,167 @@
+html, body, #root { min-height: 100%; margin: 0; }
+body { font-family: ui-sans-serif, system-ui, -apple-system, "SF Pro Text", "Segoe UI", sans-serif; }
+.folder-demo {
+  --desk-bg: #fafafa;
+  --desk-ink: #18181b;
+  --desk-muted: #64646e;
+  --desk-button: #f4f4f5;
+  --desk-border: #d4d4d8;
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100svh;
+  padding: 64px 24px;
+  overflow: clip;
+  background: var(--desk-bg);
+  color: var(--desk-ink);
+  -webkit-font-smoothing: antialiased;
+}
+.folder-demo[data-theme="dark"] {
+  --desk-bg: #161618;
+  --desk-ink: #f4f4f5;
+  --desk-muted: #b0b0ba;
+  --desk-button: #242428;
+  --desk-border: #52525b;
+  color-scheme: dark;
+}
+.folder-demo[data-theme="light"] { color-scheme: light; }
+.folder-demo-dots {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .13;
+  background-image: radial-gradient(currentColor 1.1px, transparent 1.4px);
+  background-size: 22px 22px;
+}
+.folder-demo-tools {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  display: flex;
+  gap: 8px;
+}
+.folder-demo-tools button {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid var(--desk-border);
+  border-radius: 12px;
+  background: var(--desk-bg);
+  color: var(--desk-muted);
+  cursor: pointer;
+  transition: transform .2s, background .2s;
+}
+.folder-demo-tools button:hover { background: var(--desk-button); }
+.folder-demo-tools button:active { transform: scale(.94); }
+.folder-demo-tools button:focus-visible,
+.folder-demo-dialog button:focus-visible,
+.folder-demo-dialog input:focus-visible { outline: 2px solid #4c8dff; outline-offset: 4px; }
+.folder-demo-desk { position: relative; width: 100%; max-width: 1180px; }
+.folder-demo-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: end;
+  justify-items: center;
+  gap: 100px 56px;
+}
+.folder-demo-grid > .gf-root[data-open],
+.folder-demo-grid > .gf-root:focus-within { z-index: 1; }
+.folder-demo-hint {
+  position: relative;
+  margin: 56px 0 0;
+  text-align: center;
+  font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  line-height: 1.8;
+  letter-spacing: .18em;
+  color: var(--desk-muted);
+  text-transform: uppercase;
+}
+.folder-demo-hint-touch { display: none; }
+.folder-demo-feedback {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+.folder-demo-feedback p {
+  margin: 0;
+  max-width: 500px;
+  padding: 12px 18px;
+  border: 1px solid var(--desk-border);
+  border-radius: 12px;
+  background: var(--desk-bg);
+  color: var(--desk-ink);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.folder-demo-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.folder-demo-dialog {
+  width: min(380px, calc(100vw - 80px));
+  padding: 26px;
+  border: 1px solid var(--desk-border);
+  border-radius: 16px;
+  background: var(--desk-bg);
+  color: var(--desk-ink);
+}
+.folder-demo-dialog::backdrop { background: rgb(10 10 14 / .4); backdrop-filter: blur(6px); }
+.folder-demo-dialog h2 { margin: 0 0 20px; font-size: 19px; font-weight: 550; }
+.folder-demo-dialog p { color: var(--desk-muted); font-size: 14px; line-height: 1.7; }
+.folder-demo-dialog label { display: block; margin-bottom: 8px; font-size: 13px; }
+.folder-demo-dialog input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--desk-border);
+  border-radius: 12px;
+  background: var(--desk-button);
+  color: var(--desk-ink);
+  font: inherit;
+}
+.folder-demo-dialog-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 24px; }
+.folder-demo-dialog button {
+  padding: 9px 16px;
+  border: 1px solid var(--desk-border);
+  border-radius: 12px;
+  background: var(--desk-button);
+  color: var(--desk-ink);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.folder-demo-dialog button.folder-demo-primary { background: var(--desk-ink); color: var(--desk-bg); border-color: var(--desk-ink); }
+.folder-demo-dialog button:disabled { opacity: .5; cursor: not-allowed; }
+@media (min-width: 768px) {
+  .folder-demo-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1280px) {
+  .folder-demo-grid { grid-template-columns: repeat(3, 1fr); gap: 40px 56px; }
+}
+@media (max-width: 767px) {
+  .folder-demo { padding: 118px 20px 64px; }
+  .folder-demo-tools { top: 20px; right: 20px; }
+  .folder-demo-hint { font-size: 10px; letter-spacing: .1em; }
+}
+@media (hover: none) {
+  .folder-demo-hint-desktop { display: none; }
+  .folder-demo-hint-touch { display: inline; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .folder-demo-tools button { transition: none; }
+}
